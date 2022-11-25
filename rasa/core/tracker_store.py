@@ -112,7 +112,7 @@ class SerializedTrackerAsText(SerializedTrackerRepresentation[Text]):
         """Serializes the tracker, returns representation of the tracker."""
         dialogue = tracker.as_dialogue()
 
-        return json.dumps(dialogue.as_dict())
+        return json.dumps(dialogue.as_dict(), ensure_ascii=False)
 
 
 class SerializedTrackerAsDict(SerializedTrackerRepresentation[Dict]):
@@ -1183,7 +1183,7 @@ class SQLTrackerStore(TrackerStore, SerializedTrackerAsText):
                         timestamp=timestamp,
                         intent_name=intent,
                         action_name=action,
-                        data=json.dumps(data),
+                        data=json.dumps(data, ensure_ascii=False),
                     )
                 )
             session.commit()
